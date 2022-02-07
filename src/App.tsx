@@ -5,7 +5,7 @@ import StatisticSection from "./components/StatisticSection/StatisticSection";
 
 function App() {
   return (
-    <div className="h-screen grid grid-cols-3 grid-rows-2 gap-4">
+    <div className="h-screen grid grid-cols-4 grid-rows-2 gap-4">
       <EmployeeListSection />
       <StatisticSection />
       <GraphSection />
