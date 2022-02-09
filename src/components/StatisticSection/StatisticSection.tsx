@@ -23,15 +23,18 @@ const StatisticSection: React.FC<StatisticSectionProps> = ({
   return (
     <div className="grid grid-rows-[60px_auto] items-center border col-span-1 rounded-lg">
       <div className="h-full grid grid-cols-3 items-center bg-blue-500 text-white text-lg font-bold text-center border-b p-2">
-        <h1>Position</h1>
-        <h1>Count of employees</h1>
-        <h1>Average age</h1>
+        <h1 className="truncate">Position</h1>
+        <h1 className="truncate">Count of employees</h1>
+        <h1 className="truncate">Average age</h1>
       </div>
       {statsByPosition.map((positionStat, i) => (
-        <div key={i} className="grid grid-cols-3 text-center p-2 overflow-auto">
-          <p>{positionStat.position}</p>
-          <p>{positionStat.count}</p>
-          <p>{positionStat.age}</p>
+        <div
+          key={i}
+          className="grid grid-cols-3 text-center px-4 py-2 overflow-auto"
+        >
+          <p className="truncate">{positionStat.position}</p>
+          <p className="truncate">{positionStat.count}</p>
+          <p className="truncate">{positionStat.age}</p>
         </div>
       ))}
     </div>
