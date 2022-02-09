@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { useState } from "react";
 import { IEmployee, Position } from "../../models/employee";
 
-type AddEmployeeSectionProps = {
+type AddEmployeeProps = {
   employeesData: IEmployee[];
   setEmployeesData: React.Dispatch<React.SetStateAction<IEmployee[]>>;
 };
 
-const AddEmployeeSection: React.FC<AddEmployeeSectionProps> = ({
+const AddEmployee: React.FC<AddEmployeeProps> = ({
   employeesData,
   setEmployeesData,
 }) => {
@@ -148,4 +148,4 @@ const AddEmployeeSection: React.FC<AddEmployeeSectionProps> = ({
   );
 };
 
-export default AddEmployeeSection;
+export default AddEmployee;

@@ -12,3 +12,9 @@ export interface IEmployee {
     age: number;
     position: Position;
 }
+
+export interface IPositionStat {
+    position: Position;
+    count: number;
+    age: number;
+}
