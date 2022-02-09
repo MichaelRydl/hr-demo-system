@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { IEmployee, IPositionStat } from "../../models/employee";
 
 type StatisticSectionProps = {
   employeesData: IEmployee[];
+  statsByPosition: IPositionStat[];
+  setStatsByPosition: React.Dispatch<React.SetStateAction<IPositionStat[]>>;
 };
 
 const StatisticSection: React.FC<StatisticSectionProps> = ({
   employeesData,
+  statsByPosition,
+  setStatsByPosition,
 }) => {
-  const [statsByPosition, setStatsByPosition] = useState<IPositionStat[]>([]);
-
   useEffect(() => {
     axios
       .get("http://34.140.193.23/api/employees/statistics_by_position")
@@ -18,10 +20,10 @@ const StatisticSection: React.FC<StatisticSectionProps> = ({
       .catch((error) => {
         console.error("Failed to load data.", error);
       });
-  }, [employeesData.length]);
+  }, [employeesData.length, setStatsByPosition]);
 
   return (
-    <div className="grid grid-rows-[60px_auto] items-center border col-span-1 rounded-lg">
+    <div className="grid grid-rows-[60px_auto] items-center border col-span-1">
       <div className="h-full grid grid-cols-3 items-center bg-blue-500 text-white text-lg font-bold text-center border-b p-2">
         <h1 className="truncate">Position</h1>
         <h1 className="truncate">Count of employees</h1>
