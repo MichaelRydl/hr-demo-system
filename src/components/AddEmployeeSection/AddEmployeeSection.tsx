@@ -30,6 +30,11 @@ const AddEmployeeSection: React.FC<AddEmployeeSectionProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (newEmployee.name.length <= 0) {
+      alert("Name must contain at least 1 character.");
+      return;
+    }
+
     const employee: IEmployee = {
       age: newEmployee.age,
       id: newEmployee.id,
