@@ -67,6 +67,7 @@ const GraphSection: React.FC<GraphSectionProps> = ({ statsByPosition }) => {
   return (
     <div className="row-span-2 col-span-1 border overflow-auto">
       <PieChart
+        containerProps={{ style: { height: "100%" } }}
         highcharts={Highcharts}
         options={handleOptions(statsByPosition)}
       />
