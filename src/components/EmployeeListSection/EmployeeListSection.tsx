@@ -2,15 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RowItem from "../RowItem/RowItem";
 import { IEmployee } from "../../models/employee";
+import AddEmployeeSection from "../AddEmployeeSection/AddEmployeeSection";
 
 const EmployeeListSection = () => {
   const [employeesData, setEmployeesData] = useState<IEmployee[]>([]);
-  const [newEmployeeData, setNewEmployeeData] = useState<IEmployee>({
-    age: 0,
-    id: 0,
-    name: "",
-    position: "",
-  });
 
   useEffect(() => {
     axios
@@ -21,33 +16,6 @@ const EmployeeListSection = () => {
       });
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setNewEmployeeData({
-      ...newEmployeeData,
-      [e.target.name]: value,
-    });
-  };
-
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-
-    const employee: IEmployee = {
-      age: newEmployeeData.age,
-      id: newEmployeeData.id,
-      name: newEmployeeData.name,
-      position: newEmployeeData.position,
-    };
-
-    axios
-      .post("http://34.140.193.23/api/employees", JSON.stringify(employee), {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => setEmployeesData([...employeesData, res.data]));
-  };
-
   const handleDeleteEmployee = (id: number) => {
     axios.delete(`http://34.140.193.23/api/employees/${id}`).then(() => {
       const employees = employeesData.filter((employee) => employee.id !== id);
@@ -56,8 +24,11 @@ const EmployeeListSection = () => {
   };
 
   return (
-    <div className="h-full bg-gray-200 row-span-3 col-span-2 rounded-lg drop-shadow-xl overflow-auto">
-      <div>
+    <div className="h-full border row-span-3 col-span-2 rounded-lg overflow-auto">
+      <div className="h-3/4 overflow-auto">
+        <div className="sticky top-0 bg-blue-400 text-white text-lg font-bold text-center border-b p-2">
+          Employees List
+        </div>
         {employeesData.map((employee, i) => (
           <RowItem
             key={`${employee.name}-${i}`}
@@ -66,21 +37,9 @@ const EmployeeListSection = () => {
           />
         ))}
       </div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Person Name:
-          <input type="text" name="name" onChange={handleChange} />
-        </label>
-        <label>
-          Person Age:
-          <input type="number" name="age" onChange={handleChange} />
-        </label>
-        <label>
-          Person Position:
-          <input type="text" name="position" onChange={handleChange} />
-        </label>
-        <button type="submit">Přidat zaměstnance</button>
-      </form>
+      <div className="h-1/4 bg-slate-100 border-t">
+        <AddEmployeeSection {...{ employeesData, setEmployeesData }} />
+      </div>
     </div>
   );
 };

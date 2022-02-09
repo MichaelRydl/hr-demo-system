@@ -8,32 +8,17 @@ type RowItemProps = {
 
 const RowItem: React.FC<RowItemProps> = ({ employee, onDeleteButtonClick }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        borderBottom: "1px solid lightgrey",
-      }}
-    >
-      <div
-        style={{
-          width: "80%",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 30%)",
-          justifyItems: "center",
-          padding: "12px 0",
-        }}
-      >
-        <p>{employee.name}</p>
+    <div className="flex justify-between border-b last:border-none">
+      <div className="w-5/6 grid grid-cols-[2fr_1fr_3fr] justify-items-center p-2 hover:bg-slate-100">
+        <p className="font-bold">{employee.name}</p>
         <p>{employee.age}</p>
         <p>{employee.position}</p>
       </div>
       <button
-        style={{ width: "20%" }}
-        className="bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none text-white"
+        className="w-1/6 bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none text-white"
         onClick={() => onDeleteButtonClick(employee.id)}
       >
-        Smazat
+        Delete
       </button>
     </div>
   );
