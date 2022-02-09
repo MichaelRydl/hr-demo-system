@@ -24,20 +24,23 @@ const EmployeeListSection = () => {
   };
 
   return (
-    <div className="h-full border row-span-3 col-span-2 rounded-lg overflow-auto">
-      <div className="h-3/4 overflow-auto">
-        <div className="sticky top-0 bg-blue-400 text-white text-lg font-bold text-center border-b p-2">
-          Employees List
+    <div className="h-full border row-span-3 col-span-2 flex flex-col justify-between rounded-lg overflow-auto">
+      <div className="overflow-auto">
+        <div className="sticky top-0 bg-blue-500 text-white text-lg font-bold text-center border-b p-2">
+          <h1>Employees List</h1>
+          <p className="text-xs">(name, age, position)</p>
         </div>
-        {employeesData.map((employee, i) => (
-          <RowItem
-            key={`${employee.name}-${i}`}
-            {...{ employee }}
-            onDeleteButtonClick={handleDeleteEmployee}
-          />
-        ))}
+        <div className="border-b">
+          {employeesData.map((employee, i) => (
+            <RowItem
+              key={`${employee.name}-${i}`}
+              {...{ employee }}
+              onDeleteButtonClick={handleDeleteEmployee}
+            />
+          ))}
+        </div>
       </div>
-      <div className="h-1/4 bg-slate-100 border-t">
+      <div className="bg-slate-100 border-t">
         <AddEmployeeSection {...{ employeesData, setEmployeesData }} />
       </div>
     </div>

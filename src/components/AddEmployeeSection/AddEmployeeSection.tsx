@@ -54,51 +54,92 @@ const AddEmployeeSection: React.FC<AddEmployeeSectionProps> = ({
   };
 
   return (
-    <form className="h-full p-4 font-bold" onSubmit={handleSubmit}>
-      <label className="grid grid-cols-2 p-2">
-        Employee Name:
-        <input
-          className="rounded-lg px-3 py-1"
-          value={newEmployee.name}
-          type="text"
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-        />
-      </label>
-      <label className="grid grid-cols-2 p-2">
-        Employee Age:
-        <input
-          className="rounded-lg px-3 py-1"
-          value={newEmployee.age}
-          type="number"
-          name="age"
-          placeholder="Age"
-          onChange={handleChange}
-        />
-      </label>
-      <label className="grid grid-cols-2 p-2">
-        Employee position:
-        <select
-          className="rounded-lg px-3 py-1"
-          name="position"
-          value={newEmployee.position}
-          onChange={handleChange}
+    <div className="accordion">
+      <div className="accordion-item">
+        <h2 className="accordion-header mb-0">
+          <button
+            className="
+            relative
+            flex
+            items-center
+            w-full
+            py-4
+            px-5
+            font-bold
+            text-base text-blue-500 text-left
+            bg-gray-200
+            rounded-none
+            transition
+            hover:bg-gray-300
+            hover:text-blue-600
+          "
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+          >
+            New Employee +
+          </button>
+        </h2>
+        <div
+          id="collapseOne"
+          className="accordion-collapse collapse"
+          aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample"
         >
-          <option value={Position.BackendDeveloper}>Backend Developer</option>
-          <option value={Position.CEO}>CEO</option>
-          <option value={Position.FrontendDeveloper}>Frontend Developer</option>
-          <option value={Position.ProductOwner}>Product Owner</option>
-          <option value={Position.ScrumMaster}>Scrum Master</option>
-        </select>
-      </label>
-      <button
-        type="submit"
-        className="w-full mt-4 p-2 bg-blue-400 hover:bg-blue-500 active:bg-blue-600 focus:outline-none text-white rounded-lg"
-      >
-        Add Employee
-      </button>
-    </form>
+          <form className="h-full p-4 font-bold" onSubmit={handleSubmit}>
+            <label className="grid grid-cols-2 p-2">
+              Employee Name:
+              <input
+                className="rounded-lg px-3 py-1"
+                value={newEmployee.name}
+                type="text"
+                name="name"
+                placeholder="Name"
+                onChange={handleChange}
+              />
+            </label>
+            <label className="grid grid-cols-2 p-2">
+              Employee Age:
+              <input
+                className="rounded-lg px-3 py-1"
+                value={newEmployee.age}
+                type="number"
+                name="age"
+                placeholder="Age"
+                onChange={handleChange}
+              />
+            </label>
+            <label className="grid grid-cols-2 p-2">
+              Employee position:
+              <select
+                className="rounded-lg px-3 py-1"
+                name="position"
+                value={newEmployee.position}
+                onChange={handleChange}
+              >
+                <option value={Position.BackendDeveloper}>
+                  Backend Developer
+                </option>
+                <option value={Position.CEO}>CEO</option>
+                <option value={Position.FrontendDeveloper}>
+                  Frontend Developer
+                </option>
+                <option value={Position.ProductOwner}>Product Owner</option>
+                <option value={Position.ScrumMaster}>Scrum Master</option>
+              </select>
+            </label>
+            <button
+              type="submit"
+              className="w-full mt-4 p-2 bg-blue-400 font-bold hover:bg-blue-500 active:bg-blue-600 focus:outline-none text-white rounded-lg"
+            >
+              Add Employee
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 
