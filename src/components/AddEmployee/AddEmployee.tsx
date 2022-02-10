@@ -93,7 +93,10 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
           aria-labelledby="headingOne"
           data-bs-parent="#accordionExample"
         >
-          <form className="h-full p-4 font-bold" onSubmit={handleSubmit}>
+          <form
+            className="h-full p-4 font-bold bg-slate-100"
+            onSubmit={handleSubmit}
+          >
             <label className="grid grid-cols-2 p-2">
               Employee Name:
               <input
@@ -137,7 +140,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
             </label>
             <button
               type="submit"
-              className="w-full mt-4 p-2 bg-blue-400 font-bold hover:bg-blue-500 active:bg-blue-600 focus:outline-none text-white rounded-lg"
+              className="w-full mt-4 p-2 bg-blue-600 font-bold text-white text-white rounded-lg rounded-lg hover:bg-blue-700 active:bg-blue-800"
             >
               Add Employee
             </button>

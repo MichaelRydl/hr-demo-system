@@ -19,7 +19,6 @@ const handleOptions = (positionStats: IPositionStat[]) => {
       align: "right",
       verticalAlign: "middle",
       itemMarginTop: 10,
-      itemMarginBottom: 10,
     },
     plotOptions: {
       pie: {
@@ -39,7 +38,6 @@ const handleOptions = (positionStats: IPositionStat[]) => {
         marker: {
           enabled: false,
           symbol: "circle",
-          radius: 3,
           states: {
             hover: {
               enabled: true,
@@ -65,7 +63,7 @@ type GraphSectionProps = {
 
 const GraphSection: React.FC<GraphSectionProps> = ({ statsByPosition }) => {
   return (
-    <div className="row-span-2 col-span-1 border overflow-auto">
+    <div className="border overflow-auto md:row-span-2 md:col-span-1">
       <PieChart
         containerProps={{ style: { height: "100%" } }}
         highcharts={Highcharts}

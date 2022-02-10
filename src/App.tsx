@@ -9,7 +9,7 @@ function App() {
   const [statsByPosition, setStatsByPosition] = useState<IPositionStat[]>([]);
 
   return (
-    <div className="h-[calc(100vh_-_40px)] m-5 grid grid-cols-2 grid-rows-2 gap-4">
+    <div className="min-h-full grid grid-rows-[auto] text-xs md:h-[calc(100vh_-_40px)] md:grid-rows-2 md:grid-cols-2 md:gap-4 md:text-base md:m-5">
       <EmployeeListSection {...{ employeesData, setEmployeesData }} />
       <StatisticSection
         {...{ employeesData, statsByPosition, setStatsByPosition }}

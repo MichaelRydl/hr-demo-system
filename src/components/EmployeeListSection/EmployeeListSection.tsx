@@ -30,8 +30,8 @@ const EmployeeListSection: React.FC<EmployeeListSectionProps> = ({
   };
 
   return (
-    <div className="grid grid-rows-[60px_auto_min-content] items-center border row-span-3 col-span-1 overflow-auto">
-      <div className="sticky top-0 bg-blue-500 text-white text-lg font-bold text-center border-b p-2">
+    <div className="max-h-[90vh] grid grid-rows-[60px_auto_min-content] items-center border overflow-auto md:max-h-full md:row-span-3 md:col-span-1">
+      <div className="h-full sticky top-0 bg-blue-600 text-white text-base font-bold text-center border-b p-2 md:text-lg">
         <h1>Employees List</h1>
         <p className="text-xs">(name, age, position)</p>
       </div>
@@ -44,9 +44,7 @@ const EmployeeListSection: React.FC<EmployeeListSectionProps> = ({
           />
         ))}
       </div>
-      <div className="bg-slate-100 border-t">
-        <AddEmployee {...{ employeesData, setEmployeesData }} />
-      </div>
+      <AddEmployee {...{ employeesData, setEmployeesData }} />
     </div>
   );
 };
