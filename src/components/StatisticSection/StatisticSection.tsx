@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, Dispatch, FC, SetStateAction } from "react";
 import { IEmployee, IPositionStat } from "../../models/employee";
+import { client } from "../../backend/client";
 
 type StatisticSectionProps = {
   employeesData: IEmployee[];
   statsByPosition: IPositionStat[];
-  setStatsByPosition: React.Dispatch<React.SetStateAction<IPositionStat[]>>;
+  setStatsByPosition: Dispatch<SetStateAction<IPositionStat[]>>;
 };
 
-const StatisticSection: React.FC<StatisticSectionProps> = ({
+const StatisticSection: FC<StatisticSectionProps> = ({
   employeesData,
   statsByPosition,
   setStatsByPosition,
 }) => {
   useEffect(() => {
-    axios
-      .get("http://34.140.193.23/api/employees/statistics_by_position")
+    client
+      .get("/employees/statistics_by_position")
       .then((res) => setStatsByPosition(res.data))
       .catch((error) => {
         console.error("Failed to load data.", error);
@@ -37,7 +37,7 @@ const StatisticSection: React.FC<StatisticSectionProps> = ({
       </div>
       {statsByPosition.map((positionStat, i) => (
         <div
-          key={i}
+          key={`${positionStat.position}-${i}`}
           className="grid grid-cols-3 text-center px-4 py-2 overflow-auto"
         >
           <p className="md:truncate" title={positionStat.position}>

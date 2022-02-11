@@ -1,15 +1,24 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, {
+  useState,
+  ChangeEvent,
+  Dispatch,
+  FC,
+  FormEvent,
+  SetStateAction,
+} from "react";
 import { IEmployee, Position } from "../../models/employee";
+import { client } from "../../backend/client";
 
 type AddEmployeeProps = {
   employeesData: IEmployee[];
-  setEmployeesData: React.Dispatch<React.SetStateAction<IEmployee[]>>;
+  setEmployeesData: Dispatch<SetStateAction<IEmployee[]>>;
+  scrollToNewItem: () => void;
 };
 
-const AddEmployee: React.FC<AddEmployeeProps> = ({
+const AddEmployee: FC<AddEmployeeProps> = ({
   employeesData,
   setEmployeesData,
+  scrollToNewItem,
 }) => {
   const [newEmployee, setNewEmployee] = useState<IEmployee>({
     age: 0,
@@ -19,7 +28,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setNewEmployee({
       ...newEmployee,
@@ -27,7 +36,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     if (newEmployee.name.length <= 0) {
@@ -36,7 +45,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
     }
 
     if (newEmployee.age <= 0) {
-      alert("Age must be positive number.");
+      alert("Age must be a positive number.");
       return;
     }
 
@@ -47,8 +56,8 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
       position: newEmployee.position,
     };
 
-    axios
-      .post("http://34.140.193.23/api/employees", employee)
+    client
+      .post("/employees", employee)
       .then((res) => setEmployeesData([...employeesData, res.data]))
       .then(() =>
         setNewEmployee({
@@ -61,6 +70,8 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
       .catch((error) => {
         console.log("Error when posting data:", error);
       });
+
+    scrollToNewItem();
   };
 
   return (
@@ -73,8 +84,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
             flex
             items-center
             w-full
-            py-4
-            px-5
+            p-4
             font-bold
             text-base text-blue-500 text-left
             bg-gray-200
@@ -102,10 +112,10 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
             className="h-full p-4 font-bold bg-slate-100"
             onSubmit={handleSubmit}
           >
-            <label className="grid grid-cols-2 p-2">
-              Employee Name:
+            <label className="grid items-center p-2 md:grid-cols-2">
+              <p className="mb-2 md:mb-0">Employee Name:</p>
               <input
-                className="rounded-lg px-3 py-1"
+                className="rounded-lg p-3 md:py-1"
                 value={newEmployee.name}
                 type="text"
                 name="name"
@@ -113,10 +123,10 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
                 onChange={handleChange}
               />
             </label>
-            <label className="grid grid-cols-2 p-2">
-              Employee Age:
+            <label className="grid items-center p-2 md:grid-cols-2">
+              <p className="mb-2 md:mb-0">Employee Age:</p>
               <input
-                className="rounded-lg px-3 py-1"
+                className="rounded-lg p-3 md:py-1"
                 value={newEmployee.age === 0 ? "" : newEmployee.age}
                 type="number"
                 name="age"
@@ -124,10 +134,10 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
                 onChange={handleChange}
               />
             </label>
-            <label className="grid grid-cols-2 p-2">
-              Employee position:
+            <label className="grid items-center p-2 md:grid-cols-2">
+              <p className="mb-2 md:mb-0">Employee Position:</p>
               <select
-                className="rounded-lg px-3 py-1"
+                className="rounded-lg p-3 md:py-1"
                 name="position"
                 value={newEmployee.position}
                 onChange={handleChange}

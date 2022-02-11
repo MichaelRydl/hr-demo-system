@@ -1,21 +1,31 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useRef, Dispatch, FC, SetStateAction } from "react";
 import RowItem from "../RowItem/RowItem";
 import AddEmployee from "../AddEmployee/AddEmployee";
 import { IEmployee } from "../../models/employee";
+import { client } from "../../backend/client";
 
 type EmployeeListSectionProps = {
   employeesData: IEmployee[];
-  setEmployeesData: React.Dispatch<React.SetStateAction<IEmployee[]>>;
+  setEmployeesData: Dispatch<SetStateAction<IEmployee[]>>;
 };
 
-const EmployeeListSection: React.FC<EmployeeListSectionProps> = ({
+const EmployeeListSection: FC<EmployeeListSectionProps> = ({
   employeesData,
   setEmployeesData,
 }) => {
+  const rowItemRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToNewItem = () => {
+    if (rowItemRef)
+      rowItemRef.current?.scroll({
+        top: rowItemRef.current?.scrollHeight,
+        behavior: "smooth",
+      });
+  };
+
   useEffect(() => {
-    axios
-      .get("http://34.140.193.23/api/employees")
+    client
+      .get("/employees")
       .then((res) => setEmployeesData(res.data))
       .catch((error) => {
         console.error("Failed to load data.", error);
@@ -23,7 +33,7 @@ const EmployeeListSection: React.FC<EmployeeListSectionProps> = ({
   }, [setEmployeesData]);
 
   const handleDeleteEmployee = (id: number) => {
-    axios.delete(`http://34.140.193.23/api/employees/${id}`).then(() => {
+    client.delete(`/employees/${id}`).then(() => {
       const employees = employeesData.filter((employee) => employee.id !== id);
       setEmployeesData(employees);
     });
@@ -35,7 +45,7 @@ const EmployeeListSection: React.FC<EmployeeListSectionProps> = ({
         <h1>Employees List</h1>
         <p className="text-xs">(name, age, position)</p>
       </div>
-      <div className="h-full border-b overflow-auto">
+      <div ref={rowItemRef} className="h-full border-b overflow-auto">
         {employeesData.map((employee, i) => (
           <RowItem
             key={`${employee.name}-${i}`}
@@ -44,7 +54,7 @@ const EmployeeListSection: React.FC<EmployeeListSectionProps> = ({
           />
         ))}
       </div>
-      <AddEmployee {...{ employeesData, setEmployeesData }} />
+      <AddEmployee {...{ employeesData, setEmployeesData, scrollToNewItem }} />
     </div>
   );
 };

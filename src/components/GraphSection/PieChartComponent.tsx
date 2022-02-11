@@ -1,3 +1,4 @@
+import React, { FC } from "react";
 import Highcharts from "highcharts/highstock";
 import PieChart from "highcharts-react-official";
 import { IPositionStat } from "../../models/employee";
@@ -60,9 +61,7 @@ const handleOptions = (positionStats: IPositionStat[]) => {
   return options;
 };
 
-const PieChartComponent: React.FC<PieChartComponentProps> = ({
-  statsByPosition,
-}) => {
+const PieChartComponent: FC<PieChartComponentProps> = ({ statsByPosition }) => {
   return (
     <PieChart
       containerProps={{ style: { height: "100%" } }}

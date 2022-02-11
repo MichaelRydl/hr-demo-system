@@ -1,3 +1,4 @@
+import React, { FC } from "react";
 import Highcharts from "highcharts/highstock";
 import ColumnChart from "highcharts-react-official";
 import { IPositionStat, Position } from "../../models/employee";
@@ -49,7 +50,7 @@ const handleOptions = (positionStats: IPositionStat[]) => {
   return options;
 };
 
-const ColumnChartComponent: React.FC<ColumnChartComponentProps> = ({
+const ColumnChartComponent: FC<ColumnChartComponentProps> = ({
   statsByPosition,
 }) => {
   return (

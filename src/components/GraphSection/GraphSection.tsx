@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import { IPositionStat } from "../../models/employee";
 import ColumnChartComponent from "./ColumnChartComponent";
 import PieChartComponent from "./PieChartComponent";
@@ -7,7 +7,7 @@ type GraphSectionProps = {
   statsByPosition: IPositionStat[];
 };
 
-const GraphSection: React.FC<GraphSectionProps> = ({ statsByPosition }) => {
+const GraphSection: FC<GraphSectionProps> = ({ statsByPosition }) => {
   const [isPieShown, setIsPieShown] = useState(true);
 
   // function to change what Graph type is shown - default graph is Pie Graph
