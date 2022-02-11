@@ -35,6 +35,11 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
       return;
     }
 
+    if (newEmployee.age <= 0) {
+      alert("Age must be positive number.");
+      return;
+    }
+
     const employee: IEmployee = {
       age: newEmployee.age,
       id: newEmployee.id,
@@ -112,7 +117,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
               Employee Age:
               <input
                 className="rounded-lg px-3 py-1"
-                value={newEmployee.age}
+                value={newEmployee.age === 0 ? "" : newEmployee.age}
                 type="number"
                 name="age"
                 placeholder="Age"
